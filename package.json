@@ -1,0 +1,16 @@
+{
+  "name": "train-reservation",
+  "module": "src/main.ts",
+  "type": "module",
+  "scripts": {
+    "dev": "bun run src/main.ts",
+    "formart": "prettier . --write"
+  },
+  "devDependencies": {
+    "@types/bun": "latest",
+    "prettier": "3.3.3"
+  },
+  "peerDependencies": {
+    "typescript": "^5.0.0"
+  }
+}
