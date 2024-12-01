@@ -1,0 +1,8 @@
+telemetry = false
+logLevel = "debug"
+
+[test]
+coverage = true
+coverageSkipTestFiles = true
+coverageIgnoreSourcemaps = true
+coverageThreshold = { lines = 0.9, functions = 0.9 }
