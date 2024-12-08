@@ -1,3 +1,5 @@
+import type {Location} from "./common.ts";
+
 export function part1(lines: string[]): number {
     return lines
             .map(occurrencesInLine)
@@ -129,9 +131,3 @@ export function part2(lines: string[]): number {
             firstWord === "SAM" && secondWord === "MAS";
     }).length
 }
-
-interface Location {
-    row: number;
-    col: number;
-}
-

@@ -1,3 +1,5 @@
+import {cartesian} from "./common.ts";
+
 export function part1(lines: string[]): number {
     return lines
         .map(line => line.split(": "))
@@ -84,10 +86,6 @@ class AdvancedEquationSystem extends EquationSystem {
         return cartesian(operators);
     }
 }
-
-const cartesian =
-    (a: any[][]) => a.reduce((a, b) => a.flatMap((d: any) => b.map((e: any) => [d, e].flat())));
-
 
 export function part2(lines: string[]): number {
     return lines

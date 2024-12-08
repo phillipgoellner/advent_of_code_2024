@@ -1,3 +1,5 @@
+import type {Location} from "./common.ts";
+
 export function part1(lines: string[]): number {
     let guardLocation: Location = determineGuardLocation(lines);
     return getVisitedLocations(lines, guardLocation).size;
@@ -62,11 +64,6 @@ const turn = (guardOrientation: Orientation): Orientation => {
 }
 
 type Orientation = 'N' | 'E' | 'S' | 'W';
-
-interface Location {
-    row: number;
-    col: number;
-}
 
 export function part2(lines: string[]): number {
     const guardLocation = determineGuardLocation(lines);
