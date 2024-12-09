@@ -70,6 +70,8 @@ export function part2(lines: string[]): number {
     const visitedLocations = getVisitedLocations(lines, guardLocation);
     visitedLocations.delete(JSON.stringify(guardLocation));
 
+    const guardStepIterator = guardSteps(lines, guardLocation);
+
     return Array.from(visitedLocations)
         .map(locationJson => JSON.parse(locationJson))
         .map(location => {
@@ -78,9 +80,13 @@ export function part2(lines: string[]): number {
             newLines[location.row] = s.substring(0, location.col) + "#" + s.substring(location.col + 1);
             return newLines;
         })
-        .filter(newLines => loops(newLines, guardLocation, 'N'))
+        .filter(newLines => {
+            const element = JSON.parse(guardStepIterator.next().value);
+            return loops(newLines, element.location, element.orientation)
+        })
         .length;
 }
+
 // Idee: visited locations mit der orientation versehen, damit man die hier direkt reinreichen kann
 const loops = (lines: string[], guardLocation: Location, guardOrientation: Orientation): boolean => {
     let visitedLocations: Set<string> = new Set();
@@ -100,4 +106,25 @@ const loops = (lines: string[], guardLocation: Location, guardOrientation: Orien
     }
 
     return true;
+}
+
+const guardSteps = (lines: string[], guardLocation: Location): Iterator<string> => {
+    let visitedLocations: string[] = [];
+    let guardOrientation: Orientation = 'N';
+
+    while (true) {
+        visitedLocations.push(JSON.stringify({location: guardLocation, orientation: guardOrientation}));
+        const nextStep = oneStep(guardLocation, guardOrientation);
+        const charAtLocation = lines[nextStep.row]?.charAt(nextStep.col);
+
+        if (charAtLocation === undefined || charAtLocation === "") {
+            break;
+        } else if (charAtLocation === "#") {
+            guardOrientation = turn(guardOrientation);
+        } else {
+            guardLocation = nextStep;
+        }
+    }
+
+    return visitedLocations.values();
 }
